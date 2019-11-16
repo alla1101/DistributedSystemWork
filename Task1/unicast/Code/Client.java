@@ -85,7 +85,7 @@ public class Client implements Runnable{
 
         try {
             
-            Socket socketClient=new Socket("localhost",1234);
+            Socket socketClient=new Socket("server",1234);
             
             System.out.println("connected to server");
 
