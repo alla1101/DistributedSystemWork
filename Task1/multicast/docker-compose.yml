@@ -1,0 +1,46 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: java.Dockerfile
+    working_dir: /usr/src/myapp
+    volumes:
+      - ./Code:/usr/src/myapp
+      - /etc/localtime:/etc/localtime:ro
+    command: tail -f /dev/null
+    networks:
+      - front
+  clientx:
+    build:
+      context: ./
+      dockerfile: java.Dockerfile
+    working_dir: /usr/src/myapp
+    volumes:
+      - ./Code:/usr/src/myapp
+      - /etc/localtime:/etc/localtime:ro
+    command: tail -f /dev/null
+    links:
+      - server:server
+    networks:
+      - front
+  clienty:
+    build:
+      context: ./
+      dockerfile: java.Dockerfile
+    working_dir: /usr/src/myapp
+    volumes:
+      - ./Code:/usr/src/myapp
+      - /etc/localtime:/etc/localtime:ro
+    command: tail -f /dev/null
+    links:
+      - server:server
+    networks:
+      - front
+networks:
+  front:
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+          - subnet: "192.168.51.0/24"
