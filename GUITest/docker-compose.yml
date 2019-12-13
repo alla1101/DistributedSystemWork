@@ -1,0 +1,15 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./
+      dockerfile: java.Dockerfile
+    working_dir: /usr/src/myapp
+    network_mode: "host"
+    environment:
+      - DISPLAY
+    volumes:
+      - ./Client:/usr/src/myapp
+      - /etc/localtime:/etc/localtime:ro
+      - $HOME/.Xauthority:/home/alla/.Xauthority
+    command: tail -f /dev/null
